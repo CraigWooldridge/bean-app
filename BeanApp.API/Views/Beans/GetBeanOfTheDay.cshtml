@@ -1,0 +1,43 @@
+﻿@model BeanApp.Domain.Models.Bean
+
+@{
+    ViewData["Title"] = "Bean of the day";
+}
+
+<h1>Bean of the day</h1>
+
+<div>
+    <h4> @Html.DisplayFor(model => model.DateToBeShownOn)</h4>
+    <hr />
+    <img src="@Url.Content(Model.Image.FileLocation)" alt="Bean Of The Day" style="height:200px;width:200px;" />
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BeanName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BeanName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aroma)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Aroma)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Colour)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Colour)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CostPer100g)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CostPer100g)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index"><input type="submit" value="Back to Home" class="btn btn-primary" /></a>
+</div>

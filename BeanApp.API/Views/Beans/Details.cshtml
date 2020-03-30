@@ -1,0 +1,45 @@
+﻿@model BeanApp.Domain.Models.Bean
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Bean Details: @Html.DisplayFor(model => model.BeanName) </h1>
+
+<div>
+
+    <hr />
+    <img src="@Url.Content(Model.Image.FileLocation)" alt="Bean Of The Day" style="height:200px;width:200px;" />
+    <hr />
+    <dl class="row">
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aroma)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Aroma)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Colour)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Colour)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CostPer100g)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CostPer100g)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateToBeShownOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateToBeShownOn)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id"><input type="submit" style="background-color: goldenrod; border-color: goldenrod;" value="Edit" class="btn btn-primary" /></a> 
+    <a asp-action="Index"><input type="submit" value="Back to List" class="btn btn-primary" /></a>
+</div>

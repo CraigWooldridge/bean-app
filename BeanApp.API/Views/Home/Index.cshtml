@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Bean selling app!</h1>
+
+
+    <img src="\uploads\Various-Beans.jpg" alt="Bean Of The Day" style="height:500px;width:600px;" />
+    <hr />
+
+    <a asp-controller="beans" asp-action="GetBeanOfTheDay"> <input type="submit" value="Click here to reveal the bean of the day!" class="btn btn-primary" /></a>
+
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BeanApp.Domain.Models.Bean>
+
+@{
+    ViewData["Title"] = "Bean Seller Home";
+}
+
+<h1>Bean Seller Dashboard</h1>
+
+<p>
+    <a asp-action="Create"><input type="submit" value="Create New Bean" class="btn btn-primary" /></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BeanName)
+            </th>
+            <!--
+    <th>
+        @Html.DisplayNameFor(model => model.Aroma)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Colour)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.CostPer100g)
+            </th>
+            -->
+            <th>
+                @Html.DisplayNameFor(model => model.DateToBeShownOn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var bean in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => bean.BeanName)
+            </td>
+            <!--
+    <td>
+        @Html.DisplayFor(modelItem => bean.Aroma)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => bean.Colour)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => bean.CostPer100g)
+    </td>
+            -->
+            <td>
+                @Html.DisplayFor(modelItem => bean.DateToBeShownOn)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@bean.Id"><input type="submit" style="background-color: green; border-color: green;" value="View Details" class="btn btn-primary" /></a>
+                <a asp-action="Edit" asp-route-id="@bean.Id"><input type="submit" style="background-color: goldenrod; border-color: goldenrod;" value="Edit" class="btn btn-primary" /></a>
+                <a asp-action="Delete" asp-route-id="@bean.Id"><input type="submit" style="background-color: red; border-color: red;" value="Delete" class="btn btn-primary" /></a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,57 @@
+﻿@model BeanApp.Domain.Models.Bean
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit: @Html.DisplayFor(model => model.BeanName)</h1>
+
+<hr />
+@using (Html.BeginForm("Edit",
+  "Beans",
+  FormMethod.Post,
+  new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="BeanName" class="control-label"></label>
+                    <input asp-for="BeanName" class="form-control" />
+                    <span asp-validation-for="BeanName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Aroma" class="control-label"></label>
+                    <input asp-for="Aroma" class="form-control" />
+                    <span asp-validation-for="Aroma" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Colour" class="control-label"></label>
+                    <input asp-for="Colour" class="form-control" />
+                    <span asp-validation-for="Colour" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CostPer100g" class="control-label"></label>
+                    <input asp-for="CostPer100g" class="form-control" />
+                    <span asp-validation-for="CostPer100g" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateToBeShownOn" class="control-label"></label>
+                    <input asp-for="DateToBeShownOn" class="form-control" />
+                    <span asp-validation-for="DateToBeShownOn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @ViewBag.Message
+}
+
+<div>
+    <a asp-action="Index"><input type="submit" value="Back to List" class="btn btn-primary" /></a>
+</div>
+
