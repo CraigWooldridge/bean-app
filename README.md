@@ -28,11 +28,11 @@ at 46% test coverage from these examples of testing.
 Running the App
 -------------------
 
-**Adding a Migration**
+**Adding a Migration**  
 To add a migration in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
 In here run Add-Migration NAME_OF_MIGRATION
 
-**Running Database Migrations**
+**Running Database Migrations**  
 To run migrations in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
 In here run Update-Database
 
