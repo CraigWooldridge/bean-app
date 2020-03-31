@@ -11,7 +11,7 @@ Software requirements
 App Structure
 -------------------
 
-The app attempts to follow Domain Driven Design (DDD)principles and is split into 5 different projects under the “TombolaWebApp” solution:
+The app attempts to follow Domain Driven Design (DDD) principles and is split into 5 different projects under the “TombolaWebApp” solution:
 
 * BeanApp.API contains all the controllers and HTML views for the front end off the web app, it also contains the project Startup.cs and Program.cs files. Inside this projects wwwroot   
 folder there is an uploads folder which is where all images associated with the app are stored.
