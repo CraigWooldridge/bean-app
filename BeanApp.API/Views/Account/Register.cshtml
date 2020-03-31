@@ -16,6 +16,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
+                <br />
+                <label style="color:red">Passwords must have at least 6 characters, have at least one digit (0-9) and must have at least one uppercase (A-Z)</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>

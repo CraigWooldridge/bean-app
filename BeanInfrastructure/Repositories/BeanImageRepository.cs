@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BeanApp.Domain.Models;
 using BeanApp.Domain.Repositories;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace BeanApp.Infrastructure.Repositories
 {

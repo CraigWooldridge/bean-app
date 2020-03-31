@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BeanApp.Domain.Models;
-using BeanApp.Infrastructure;
 using BeanApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 namespace BeanApp.API.Controllers
 {
@@ -30,35 +23,57 @@ namespace BeanApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var beanList = await _beanService.GetAll();
-            return View(beanList);
+            try
+            {
+                var beanList = await _beanService.GetAll();
+                return View(beanList);
+            }
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
+
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetBeanOfTheDay()
         {
-            var dailyBean = await _beanService.GetBeanOfTheDay();
-            if (dailyBean == null)
+            try
             {
-                ViewBag.ErrorMessage = "The daily bean has not been posted at the moment, please try again later";
-                return View("NotFound");
+                var dailyBean = await _beanService.GetBeanOfTheDay();
+                if (dailyBean == null)
+                {
+                    ViewBag.ErrorMessage = "The daily bean has not been posted at the moment, please try again later";
+                    return View("NotFound");
+                }
+
+                return View(dailyBean);
             }
-            return View(dailyBean);
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-
-            var bean = await _beanService.GetBeanById(id);
-            if (bean == null)
+            try
             {
-                ViewBag.ErrorMessage = "Bean Not Found";
-                return View("NotFound");
-            }
+                var bean = await _beanService.GetBeanById(id);
+                if (bean == null)
+                {
+                    ViewBag.ErrorMessage = "Bean Not Found";
+                    return View("NotFound");
+                }
 
-            return View(bean);
+                return View(bean);
+            }
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpGet]
@@ -71,94 +86,125 @@ namespace BeanApp.API.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,BeanName,Aroma,Colour,CostPer100g,DateToBeShownOn,Image")] Bean bean, IFormFile file)
         {
-            var dateCheck = await _beanService.DateCheck(bean);
-            if (dateCheck != null)
+            try
             {
-                ViewBag.ErrorMessage = "Invalid date, A bean of the day already exists for this date.";
-                return View("InvalidDate");
-            }
+                var dateCheck = await _beanService.DateCheck(bean);
+                if (dateCheck != null)
+                {
+                    ViewBag.ErrorMessage = "Invalid date, A bean of the day already exists for this date.";
+                    return View("InvalidDate");
+                }
 
-            if (file == null)
+                if (file == null)
+                {
+                    ViewBag.ErrorMessage = "You haven't selected an image for this Bean!";
+                    return View("NoImage");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var uploadedImage = await _beanImageService.UploadImage(file);
+                    bean.Image = uploadedImage;
+
+                    var createdBean = await _beanService.Create(bean);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(bean);
+            }
+            catch
             {
-                ViewBag.ErrorMessage = "You haven't selected an image for this Bean!";
-                return View("NoImage");
+                return RedirectToAction("HttpStatusCodeHandler, Error");
             }
-
-            if (ModelState.IsValid)
-            {
-                var uploadedImage = await _beanImageService.UploadImage(file);
-                bean.Image = uploadedImage;
-
-                var createdBean = await _beanService.Create(bean);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(bean);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var bean = await _beanService.GetBeanById(id);
-            if (bean == null)
+            try
             {
-                ViewBag.ErrorMessage = "Bean Not Found";
-                return View("NotFound");
+                var bean = await _beanService.GetBeanById(id);
+                if (bean == null)
+                {
+                    ViewBag.ErrorMessage = "Bean Not Found";
+                    return View("NotFound");
+                }
+
+                return View(bean);
             }
-            return View(bean);
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BeanName,Aroma,Colour,CostPer100g,DateToBeShownOn")] Bean bean)
         {
-            if (id != bean.Id)
+            try
             {
-                ViewBag.ErrorMessage = "Bean Not Found";
-                return View("NotFound");
-            }
+                var dateCheck = await _beanService.DateCheck(bean);
+                if (dateCheck != null)
+                {
+                    ViewBag.ErrorMessage = "Invalid date, A bean of the day already exists for this date.";
+                    return View("InvalidDate");
+                }
 
-            var dateCheck = await _beanService.DateCheck(bean);
-            if (dateCheck != null)
-            {
-                ViewBag.ErrorMessage = "Invalid date, A bean of the day already exists for this date.";
-                return View("InvalidDate");
-            }
+                if (id != bean.Id)
+                {
+                    ViewBag.ErrorMessage = "Bean Not Found";
+                    return View("NotFound");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
                     var updatedBean = await _beanService.Edit(id, bean);
+
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
+                return View(bean);
             }
-            return View(bean);
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            } 
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var bean = await _beanService.GetBeanById(id);
-            if (bean == null)
+            try
             {
-                ViewBag.ErrorMessage = "Bean Not Found";
-                return View("NotFound");
-            }
+                var bean = await _beanService.GetBeanById(id);
+                if (bean == null)
+                {
+                    ViewBag.ErrorMessage = "Bean Not Found";
+                    return View("NotFound");
+                }
 
-            return View(bean);
+                return View(bean);
+            }
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bean = await _beanService.GetBeanById(id);
-            await _beanService.Delete(bean);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var bean = await _beanService.GetBeanById(id);
+                await _beanService.Delete(bean);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
     }
 }

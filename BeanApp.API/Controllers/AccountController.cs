@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BeanApp.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +20,15 @@ namespace BeanApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-           await _signInManager.SignOutAsync();
-           return RedirectToAction("Index", "Home");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpGet]
@@ -36,19 +40,26 @@ namespace BeanApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUser login)
         {
-            if (ModelState.IsValid)
+            try
             {
-
-                var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
-
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("index", "beans");
-                }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt, please try again");
+                    var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("index", "beans");
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt, please try again");
+                }
+                return View(login);
             }
-            return View(login);
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
 
         [HttpGet]
@@ -60,29 +71,36 @@ namespace BeanApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUser register)
         {
-            if (ModelState.IsValid)
+            try
             {
-                
-                var user = new IdentityUser
+                if (ModelState.IsValid)
                 {
-                    UserName = register.UserName
-                };
 
-                var result = await _userManager.CreateAsync(user, register.Password);
+                    var user = new IdentityUser
+                    {
+                        UserName = register.UserName
+                    };
 
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "beans");
+                    var result = await _userManager.CreateAsync(user, register.Password);
+
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("index", "beans");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                return View(register);
             }
-
-            return View(register);
+            catch
+            {
+                return RedirectToAction("HttpStatusCodeHandler, Error");
+            }
         }
     }
 }
