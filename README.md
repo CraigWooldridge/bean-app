@@ -42,9 +42,9 @@ Using the App
 ---------------------
 The database seed data should have populated the local databse with a couple of beans upon building, once clicking on the bean of the day button this should reveal a bean.
 
-Beans can also be created by navigating to the “Create Beans” tab, this will navigate you to a login page. The seed data does not contain any user data so a user account will need to be  
+Beans can also be created by navigating to the “Create Beans” tab, this will navigate you to a login page. The seed data does not contain any user data so a user account will need to be 
 created for the bean seller. Navigating to “Register” will allow users to be created. 
 
-From here, the create beans tab can be accessed and it will allow the logged in bean seller to create, view, update or delete upcoming beans of the day. Any beans added will be saved to the database and   
+From here, the create beans tab can be accessed and it will allow the logged in bean seller to create, view, update or delete upcoming beans of the day. Any beans added will be saved to the database and
 will still appear up after re-running the app.
 
