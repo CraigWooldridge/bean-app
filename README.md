@@ -28,23 +28,27 @@ at 46% test coverage from these examples of testing.
 Running the App
 -------------------
 
+**Starting the app**
+The "TombolaWebApp" solution file will open the project. When opening the solution for the first time, a database migration will need to be performed to create and populate a local database   
+with some bean data, follow information under "Running Database Migrations" to complete this. From there, the app should be ready to build 
+
 **Adding a Migration**  
-To add a migration in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
+To add a database migration in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
 In here run Add-Migration NAME_OF_MIGRATION
 
 **Running Database Migrations**  
 To run migrations in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
 In here run Update-Database
 
-When Bulding the app for the first time, a database migration will need to be performed, follow information under "Running Database Migrations" for this.
 
 Using the App
 ---------------------
-The database seed data should have populated the local databse with a couple of beans upon building, once clicking on the bean of the day button this should reveal a bean.
+The database seed data should have populated the local databse with a few beans upon building, once clicking on the bean of the day button this should reveal a bean.
 
 Beans can also be created by navigating to the “Create Beans” tab, this will navigate you to a login page. The seed data does not contain any user data so a user account will need to be 
-created for the bean seller. Navigating to “Register” will allow users to be created. 
+created for the bean seller. Navigating to “Register” will allow users to be created. In a real word example this register tab would  not be accessible, but it has been left in to demonstrate  
+how new users of the platform would be created.
 
-From here, the create beans tab can be accessed and it will allow the logged in bean seller to create, view, update or delete upcoming beans of the day. Any beans added will be saved to the database and
-will still appear up after re-running the app.
+Once a user is created and logged in, the create beans tab can be accessed and it will allow the logged in bean seller to create, view, update or delete upcoming beans of the day. Any beans   
+added will be saved to the database and will still appear up after re-running the app.
 
