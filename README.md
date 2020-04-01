@@ -29,13 +29,13 @@ sits at 46% test coverage from these examples of testing.
 
 Running the App
 -------------------
-**Clone the Application**
+**Clone the Application**  
 To clone the repository, in the git command line run:
 ```
 git clone https://gitlab.com/craig.wooldridge/tombola-bean-app.git
 ```
 
-**Viewing/ Editing connection String**
+**Viewing/ Editing connection String**  
 In Visual Studio click on the ```BeanApp.API``` project and select the ```appsettings.json``` file. Fill the default connection variable with the correct database connection string.
 ```
  "ConnectionStrings": {
@@ -45,7 +45,7 @@ In Visual Studio click on the ```BeanApp.API``` project and select the ```appset
 Since this app will only ever be ran locally, the connection string variable has been stored in the ```appsettings.json``` file so a new one does not need to be entered when first running the app.   
 If this app were to be deployed, this variable would be set in the environment variables.
 
-**Starting the app**
+**Starting the app**  
 The ```TombolaWebApp``` solution file will open the project. When opening the solution for the first time, a database migration will need to be performed to create and populate a local database   
 with some bean data, follow information under ```Running Database Migrations``` to complete this. From there, the app should be ready to build, making sure build mode is set to ISS Express.
 
