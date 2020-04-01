@@ -35,7 +35,7 @@ To clone the repository, in the git command line run:
 git clone https://gitlab.com/craig.wooldridge/tombola-bean-app.git
 ```
 
-**Viewing/ Editing connection String**  
+**Viewing/ Editing connection string**  
 In Visual Studio click on the ```BeanApp.API``` project and select the ```appsettings.json``` file. Fill the default connection variable with the correct database connection string.
 ```
  "ConnectionStrings": {
