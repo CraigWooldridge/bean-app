@@ -43,7 +43,7 @@ In Visual Studio click on the ```BeanApp.API``` project and select the ```appset
   }
   ```
 Since this app will only ever be ran locally, the connection string variable has been stored in the ```appsettings.json``` file so a new one does not need to be entered when first running the app.   
-If this app were to be deployed, this variable would be set in the environment variables.
+If this app were to be deployed, this variable would be set in the environment variables to protect it.
 
 **Starting the app**  
 The ```TombolaWebApp``` solution file will open the project. When opening the solution for the first time, a database migration will need to be performed to create and populate a local database   
