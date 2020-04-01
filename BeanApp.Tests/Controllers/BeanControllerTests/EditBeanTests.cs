@@ -111,26 +111,6 @@ namespace BeanApp.Tests.Controllers
             Assert.True(result.ActionName is "Index");
         }
 
-        //[Test]
-        //public async Task Create_Should_Return_ModelStateError_If_Inputs_Are_Invalid()
-        //{
-        //    // Act
-        //    var beanController = new BeansController(BeanSetup().Object, BeanImageSetup().Object);
-        //    var result = await beanController.Create(
-        //        new Bean("TestBean", "Test Aroma", "TestColour", 1M, DateTime.Today.AddDays(1), null)
-        //        {
-        //            Id = 1,
-        //            BeanName = null
-        //        },
-        //        FileSetup().Object) as ViewResult;
-        //    var resultBody = result.Model;
-
-
-        //    // Assert
-        //    Assert.IsNull(result);
-        //    Assert.IsInstanceOf<Bean>(resultBody);
-        //}
-
         [Test]
         public async Task Edit_Should_Return_InvalidDate_If_BeanDate_Already_Exists()
         {
