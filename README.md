@@ -5,7 +5,7 @@ Software requirements
 ---------------------
 
 * Visual Studio IDE
-* .net Core 3.1 sdk
+* .NET Core 3.1 sdk
 * Microsoft SQL server
 
 App Structure
@@ -27,18 +27,33 @@ at 46% test coverage from these examples of testing.
 
 Running the App
 -------------------
+**Clone the Application**
+To clone the repository, in the git command line run:
+```
+git clone https://gitlab.com/craig.wooldridge/tombola-bean-app.git
+```
+
+**Viewing/ Editing connection String**
+In Visual Studio click on the ```BeanApp.API``` project and select the ```appsettings.json``` file. Fill the defualt connection varibale  with the correct database connection string.
+```
+ "ConnectionStrings": {
+    "DefaultConnection": LOCAL_DB_STRING or DEV_DB_STRING
+  }
+  ```
+Since this app will only ever be ran locally, the connection string has been left in the ```appsettings.json``` file so a new one does not need to be entered when first running the app.   
+If this app were to be deployed, thsi variable would be set in the enviroment variables.
 
 **Starting the app**
-The "TombolaWebApp" solution file will open the project. When opening the solution for the first time, a database migration will need to be performed to create and populate a local database   
-with some bean data, follow information under "Running Database Migrations" to complete this. From there, the app should be ready to build 
+The ```TombolaWebApp``` solution file will open the project. When opening the solution for the first time, a database migration will need to be performed to create and populate a local database   
+with some bean data, follow information under ```Running Database Migrations``` to complete this. From there, the app should be ready to build, makng sure build mode is set to ISS Express.
 
 **Adding a Migration**  
-To add a database migration in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
+To add a database migration in Visual Studio navigate to tools => NuGet Package Manager => Package Manager Console
 In here run Add-Migration NAME_OF_MIGRATION
 
 **Running Database Migrations**  
-To run migrations in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
-In here run Update-Database
+To run database migrations in visual studio navigate to tools => NuGet Package Manager => Package Manager Console
+In here run Update-Database. This will need to be performed before building the app for the first time.
 
 
 Using the App
