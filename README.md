@@ -16,7 +16,7 @@ App Structure
 The app attempts to follow Domain Driven Design (DDD) principles and is split into 5 different projects under the “TombolaWebApp” solution:
 
 * ```BeanApp.API``` contains all the controllers and HTML views for the front end off the web app, it also contains the project ```Startup.cs``` and ```Program.cs``` files. Inside this   
-* projects ```wwwroot``` folder there is an uploads folder which is where all images associated with the app are stored.
+projects ```wwwroot``` folder there is an uploads folder which is where all images associated with the app are stored.
 
 * ```BeanApp.Domain``` contains the entity models and repository interfaces for the app. This is the core of the project where the bean properties are defined.
 
@@ -25,7 +25,7 @@ The app attempts to follow Domain Driven Design (DDD) principles and is split in
 * ```BeanApp.Infrastructure``` is where the entities are saved to the local database, this project also contains the database migration classes and the database seed data.
 
 * ```BeanApp.Tests``` contains some examples of unit tests done on the beans Controller and the Bean Service, to demonstrate how ```Nunit``` and ```Moq``` are used to test the app. The app currently  
-* sits at 46% test coverage from these examples of testing.
+sits at 46% test coverage from these examples of testing.
 
 Running the App
 -------------------
